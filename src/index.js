@@ -1,6 +1,6 @@
 class Ampel {
-  constructor(id) {
-    this.id = id;
+  constructor(number) {
+    this.number = number;
     this.doBlink('yellow');
   }
 
@@ -19,8 +19,12 @@ class Ampel {
 
   doBlink (color) {
     window.clearInterval(this.interval);
+    const lightNumber = this.getLighNumberFromColor(color);
+    
+    console.log(color, this.number, lightNumber);
+
     this.interval = window.setInterval(() => {
-      const elm = document.getElementById(this.id);
+      const elm = document.getElementById(`l${this.number}${lightNumber}`);
       if (elm.style.backgroundColor === color) {
         elm.style.backgroundColor = 'black';
       } else {
@@ -28,18 +32,32 @@ class Ampel {
       }
     }, 1000);
   }
+
+  getLighNumberFromColor(color) {
+    let lightNumber;
+    switch(color) {
+      case 'green':
+        lightNumber = 3;
+        break;
+      case 'yellow':
+        lightNumber = 2;
+        break;
+      default: lightNumber = 1;
+    }
+    return lightNumber;
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  let westAmpel = new Ampel('l12');
+  let westAmpel = new Ampel(1);
   westAmpel.doBlink('yellow');
   
-  let nordAmpel = new Ampel('l22');
+  let nordAmpel = new Ampel(2);
   nordAmpel.doBlink('yellow');
 
-  let ostAmpel = new Ampel('l32');
+  let ostAmpel = new Ampel(3);
   ostAmpel.doBlink('yellow');
   
-  let suedAmpel = new Ampel('l42');
+  let suedAmpel = new Ampel(4);
   suedAmpel.doBlink('yellow');
 });
