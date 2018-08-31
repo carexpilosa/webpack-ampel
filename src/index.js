@@ -32,7 +32,7 @@ class Ampel {
 
 document.addEventListener("DOMContentLoaded", () => {
   let westAmpel = new Ampel('l12');
-  westAmpel.doBlink('red');
+  westAmpel.doBlink('yellow');
   
   let nordAmpel = new Ampel('l22');
   nordAmpel.doBlink('yellow');
