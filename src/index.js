@@ -1,39 +1,79 @@
-class Ampel {
-  constructor(number) {
-    this.number = number;
-    this.doBlink('yellow');
-  }
 
-  phasen() {
-    return {
-      blink: {
-        color: 'yellow',
-        blink: true
+
+let ampelCtrl = {
+  phaseCounter: 0,
+
+  timer: undefined,
+
+  phasen: [
+    {
+      name: 'off',
+      duration: 30,
+      west: {
+        blink: true,
+        color: 'yellow'
+      },
+      nord: {
+        blink: true,
+        color: 'yellow'
+      },
+      ost: {
+        blink: true,
+        color: 'yellow'
+      },
+      sued: {
+        blink: true,
+        color: 'yellow'
       }
-    }
-  }
-  
-  process() {
-    console.log(document.getElementById('a1'));
-  }
-
-  doBlink (color) {
-    window.clearInterval(this.interval);
-    const lightNumber = this.getLighNumberFromColor(color);
+    },
     
-    console.log(color, this.number, lightNumber);
+    {
+      name: 'beforeNSGo',
+      duration: 10,
+      west: {
 
-    this.interval = window.setInterval(() => {
-      const elm = document.getElementById(`l${this.number}${lightNumber}`);
-      if (elm.style.backgroundColor === color) {
-        elm.style.backgroundColor = 'black';
-      } else {
-        elm.style.backgroundColor = color;
+      },
+      nord: {
+        color: ['rot', 'gelb'],
+      },
+      ost: {},
+      sued: {},
+    },
+
+    {
+      name: 'beforeWOGo',
+      duration: 10,
+    },
+    
+    {
+      name: 'NSGo',
+      duration: 10,
+    },
+
+    {
+      name: 'WOGo',
+      duration: 10,
+    }
+  ],
+
+  process: () => {
+    const actPhase = ampelCtrl.phasen[ampelCtrl.phaseCounter];
+    console.log(actPhase);
+    
+    timer = setTimeout(() => {
+      ampelCtrl.phaseCounter++;
+      if (ampelCtrl.phaseCounter > ampelCtrl.phasen.length - 1) {
+        ampelCtrl.phaseCounter = 0;
       }
-    }, 1000);
-  }
+      ampelCtrl.process();
+    }, actPhase.duration * 100);
+  },
 
-  getLighNumberFromColor(color) {
+  exec() {
+    console.log(phase);
+  },
+
+  getLightNumberFromColor: color => {
     let lightNumber;
     switch(color) {
       case 'green':
@@ -48,16 +88,42 @@ class Ampel {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  let westAmpel = new Ampel(1);
-  westAmpel.doBlink('yellow');
-  
-  let nordAmpel = new Ampel(2);
-  nordAmpel.doBlink('yellow');
+class Ampel {
+  constructor(number) {
+    this.number = number;
+    //this.doBlink('yellow');
+    //this.phaseCounter = 0;
+  }
 
-  let ostAmpel = new Ampel(3);
-  ostAmpel.doBlink('yellow');
-  
-  let suedAmpel = new Ampel(4);
-  suedAmpel.doBlink('yellow');
+  doBlink (colors) {
+    window.clearInterval(this.interval);
+    
+    this.interval = window.setInterval(() => {
+      colors.map(color => {
+        const lightNumber = ampelCtrl.getLightNumberFromColor(color);
+        const elm = document.getElementById(`l${this.number}${lightNumber}`);
+        if (elm.style.backgroundColor === color) {
+          elm.style.backgroundColor = 'black';
+        } else {
+          elm.style.backgroundColor = color;
+        }
+      });
+    }, 1000);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  ampelCtrl.process();
+
+  //let westAmpel = new Ampel(1);
+  //westAmpel.doBlink(['yellow']);
+  //
+  //let nordAmpel = new Ampel(2);
+  //nordAmpel.doBlink(['red']);
+//
+  //let ostAmpel = new Ampel(3);
+  //ostAmpel.doBlink(['yellow']);
+  //
+  //let suedAmpel = new Ampel(4);
+  //suedAmpel.doBlink(['green']);
 });

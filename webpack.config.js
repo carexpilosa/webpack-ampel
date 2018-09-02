@@ -10,5 +10,5 @@ module.exports = {
     port: 8888,
     open: true
   },
-  devtool: 'cheap-module-eval-source-map '
+  devtool: 'cheap-module-eval-source-map'
 };
