@@ -36,24 +36,98 @@ let ampelCtrl = {
       nord: {
         color: ['rot', 'gelb'],
       },
-      ost: {},
-      sued: {},
+      ost: {
+
+      },
+      sued: {
+
+      },
+    },
+
+    {
+      name: 'NSGo',
+      duration: 10,
+      west: {
+
+      },
+      nord: {
+        color: ['rot', 'gelb'],
+      },
+      ost: {
+
+      },
+      sued: {
+        
+      },
+    },
+
+    {
+      name: 'afterNSGo',
+      duration: 10,
+      west: {
+
+      },
+      nord: {
+        color: ['rot', 'gelb'],
+      },
+      ost: {
+
+      },
+      sued: {
+
+      },
     },
 
     {
       name: 'beforeWOGo',
       duration: 10,
+      west: {
+
+      },
+      nord: {
+        color: ['rot', 'gelb'],
+      },
+      ost: {
+
+      },
+      sued: {
+        
+      },
     },
     
     {
-      name: 'NSGo',
+      name: 'WOGo',
       duration: 10,
+      west: {
+
+      },
+      nord: {
+        color: ['rot', 'gelb'],
+      },
+      ost: {
+
+      },
+      sued: {
+        
+      },
     },
 
     {
-      name: 'WOGo',
+      name: 'afterNSGo',
       duration: 10,
-    }
+      west: {
+
+      },
+      nord: {
+        color: ['rot', 'gelb'],
+      },
+      ost: {
+
+      },
+      sued: {
+
+      },
+    },
   ],
 
   process: () => {
